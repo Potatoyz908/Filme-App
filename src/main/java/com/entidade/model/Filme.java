@@ -4,7 +4,7 @@ public class Filme {
     private int id;
     private String title;
     private String genre;
-    private int releaseYear;
+    private int release_year;
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -15,6 +15,6 @@ public class Filme {
     public String getGenre() { return genre; }
     public void setGenre(String genre) { this.genre = genre; }
 
-    public Integer getReleaseYear() { return releaseYear; }
-    public void setReleaseYear(Integer releaseYear) { this.releaseYear = releaseYear; }
+    public Integer getRelease_year() { return release_year; }
+    public void setRelease_year(Integer release_year) { this.release_year = release_year; }
 }

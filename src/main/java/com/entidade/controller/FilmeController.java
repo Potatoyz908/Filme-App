@@ -21,9 +21,9 @@ public class FilmeController {
     public ResponseEntity<String> createMovie(@RequestBody Filme filme) {
         int rows = filmeService.saveFilme(filme);
         if (rows > 0) {
-            return ResponseEntity.ok("Filme criado com sucesso!");
+            return ResponseEntity.ok("Filme adicionado com sucesso!");
         } else {
-            return ResponseEntity.badRequest().body("Erro ao criar o filme.");
+            return ResponseEntity.badRequest().body("Erro ao adicionar o filme.");
         }
     }
 

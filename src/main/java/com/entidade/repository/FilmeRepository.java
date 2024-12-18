@@ -19,7 +19,7 @@ public class FilmeRepository {
 
     public int saveFilme(Filme filme) {
         String sql = "INSERT INTO filmes (title, genre, release_year) VALUES (?, ?, ?)";
-        return jdbcTemplate.update(sql, filme.getTitle(), filme.getGenre(), filme.getReleaseYear());
+        return jdbcTemplate.update(sql, filme.getTitle(), filme.getGenre(), filme.getRelease_year());
     }
 
     public List<Filme> getAllFilmes() {
@@ -32,7 +32,7 @@ public class FilmeRepository {
         filme.setId(rs.getInt("id"));
         filme.setTitle(rs.getString("title"));
         filme.setGenre(rs.getString("genre"));
-        filme.setReleaseYear(rs.getInt("release_year"));
+        filme.setRelease_year(rs.getInt("release_year"));
         return filme;
     }
 }
