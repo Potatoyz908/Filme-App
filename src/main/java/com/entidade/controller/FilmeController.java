@@ -17,7 +17,7 @@ public class FilmeController {
         this.filmeService = filmeService;
     }
 
-    @PostMapping
+    @PostMapping("/add_filme")
     public ResponseEntity<String> createMovie(@RequestBody Filme filme) {
         int rows = filmeService.saveFilme(filme);
         if (rows > 0) {
@@ -27,7 +27,7 @@ public class FilmeController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/listar_filmes")
     public ResponseEntity<List<Filme>> getAllFilmes() {
         return ResponseEntity.ok(filmeService.getAllFilmes());
     }
