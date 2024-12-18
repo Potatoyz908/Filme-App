@@ -31,4 +31,16 @@ public class FilmeController {
     public ResponseEntity<List<Filme>> getAllFilmes() {
         return ResponseEntity.ok(filmeService.getAllFilmes());
     }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Filme> updateFilme(@PathVariable("id") int id, @RequestBody Filme updateFilme) {
+        return filmeService.updateFilme(id, updateFilme).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+
+
+    }
+
+
+    @PutMapping("/editar_filme")
+    public ResponseEntity<List<Filme>>
 }
