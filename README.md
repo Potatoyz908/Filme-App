@@ -130,6 +130,68 @@ Se o Maven estiver instalado globalmente:
    ]
    ```
 
+
+---
+
+#### **3. Buscar Filme por ID**
+- **Método:** GET  
+- **URL:** `/filmes/{id}`  
+
+- **Resposta de Sucesso (200 OK):**
+   ```json
+   {
+       "id": 1,
+       "title": "Donnie Darko",
+       "genre": "Sci-Fi",
+       "releaseYear": 2003
+   }
+   ```
+
+- **Resposta de Falha (404 Not Found):**
+   ```json
+   404 Not Found
+   ```
+
+---
+
+#### **4. Atualizar Filme**
+- **Método:** PUT  
+- **URL:** `/filmes/{id}`  
+- **Body JSON:**
+   ```json
+   {
+       "title": "Donnie Darko - Updated",
+       "genre": "Drama",
+       "releaseYear": 2004
+   }
+   ```
+
+- **Resposta de Sucesso (200 OK):**
+   ```json
+   {
+       "id": 1,
+       "title": "Donnie Darko - Updated",
+       "genre": "Drama",
+       "releaseYear": 2004
+   }
+   ```
+
+---
+
+#### **5. Deletar Filme**
+- **Método:** DELETE  
+- **URL:** `/filmes/{id}`  
+
+- **Resposta de Sucesso (204 No Content):**
+   ```json
+   204 No Content
+   ```
+
+- **Resposta de Falha (404 Not Found):**
+   ```json
+   404 Not Found
+   ```
+
 ---
 
 ### 📚 **Tecnologias Utilizadas**
