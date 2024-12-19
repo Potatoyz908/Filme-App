@@ -14,6 +14,9 @@ public class FilmeApp2Application {
         System.out.println("Endpoints disponíveis:");
         System.out.println("1. [POST] /filmes/add_filme - Para adicionar um filme.");
         System.out.println("2. [GET]  /filmes/listar_filmes - Para listar todos os filmes.");
+        System.out.println("3. [PUT]   /filmes/editar_filme - Para editar um filme.");
+        System.out.println("4. [GET]   /filmes/{id} - Para buscar um filme pelo ID.");
+        System.out.println("5. [Delete]    /filmes/{id} - Para remover um filme.");
         System.out.println("===================================================================\n");
     }
 }
