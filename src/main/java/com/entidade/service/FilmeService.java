@@ -6,6 +6,7 @@ import com.entidade.repository.FilmeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FilmeService {
@@ -25,6 +26,23 @@ public class FilmeService {
         return filmeRepository.getAllFilmes();
     }
 
+    public Optional<Filme> getFilmeById(int id) {
+        return filmeRepository.getFilmeById(id);
+    }
+
+    public Optional<Filme> updateFilme(int id, Filme updatedFilme) {
+        Optional<Filme> existingFilme = filmeRepository.getFilmeById(id);
+        if (existingFilme.isPresent()) {
+            filmeRepository.updateFilme(id, updatedFilme);
+            return Optional.of(updatedFilme);
+        }
+        return Optional.empty();
+    }
+
+    public boolean deleteFilme(int id) {
+        return filmeRepository.deleteFilme(id);
+    }
+
     private void validaFilme(Filme filme) {
         if (filme.getTitle() == null || filme.getTitle().trim().isEmpty()) {
             throw new InvalidFilmeException("O título do filme é obrigatório.");
@@ -32,6 +50,5 @@ public class FilmeService {
         if (filme.getGenre() == null || filme.getGenre().trim().isEmpty()) {
             throw new InvalidFilmeException("O gênero do filme é obrigatório.");
         }
-
     }
 }

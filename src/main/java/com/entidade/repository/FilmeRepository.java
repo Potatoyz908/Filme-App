@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class FilmeRepository {
@@ -25,6 +26,19 @@ public class FilmeRepository {
     public List<Filme> getAllFilmes() {
         String sql = "SELECT * FROM filmes";
         return jdbcTemplate.query(sql, this::mapRowToFilme);
+    }
+    public Optional<Filme> getFilmeById(int id){
+        String sql = "SELECT * FROM filmes WHERE id = ?";
+        List<Filme> filmes = jdbcTemplate.query(sql, this::mapRowToFilme, id);
+        return filmes.isEmpty() ? Optional.empty() : Optional.of(filmes.get(0));
+    }
+    public int updateFilme(int id, Filme filme){
+        String sql = "UPDATE filmes SET title = ?, genre = ?, release_year = ? WHERE id = ?";
+        return jdbcTemplate.update(sql, filme.getTitle(), filme.getGenre(), filme.getRelease_year(), id);
+    }
+    public boolean deleteFilme(int id){
+        String sql = "DELETE FROM filmes WHERE id = ?";
+        return jdbcTemplate.update(sql, id) > 0;
     }
 
     private Filme mapRowToFilme(ResultSet rs, int rowNum) throws SQLException {

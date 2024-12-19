@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/filmes")
@@ -30,5 +31,27 @@ public class FilmeController {
     @GetMapping("/listar_filmes")
     public ResponseEntity<List<Filme>> getAllFilmes() {
         return ResponseEntity.ok(filmeService.getAllFilmes());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Filme> buscarFilmeById(@PathVariable int id) {
+        Optional<Filme> filme = filmeService.getFilmeById(id);
+        return filme.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Filme> atualizarFilme(@PathVariable int id, @RequestBody Filme updatedFilme) {
+        Optional<Filme> filme = filmeService.updateFilme(id, updatedFilme);
+        return filme.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarFilme(@PathVariable int id) {
+        boolean deletado = filmeService.deleteFilme(id);
+        if (deletado) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
