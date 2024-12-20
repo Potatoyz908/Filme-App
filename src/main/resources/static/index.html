@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Filmes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>Gerenciador de Filmes</h1>
+<div id="form-container">
+    <h2>Adicionar Filme</h2>
+    <form id="add-film-form">
+        <input type="text" id="title" placeholder="Título" required />
+        <input type="text" id="genre" placeholder="Gênero" required />
+        <input type="number" id="release_year" placeholder="Ano de Lançamento" required />
+        <button type="submit">Adicionar Filme</button>
+    </form>
+</div>
+<div id="film-list">
+    <h2>Lista de Filmes</h2>
+    <ul id="films"></ul>
+</div>
+<script src="scripts.js"></script>
+</body>
+</html>
