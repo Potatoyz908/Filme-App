@@ -5,7 +5,7 @@ document.getElementById("add-film-form").addEventListener("submit", async (e) =>
 
     const title = document.getElementById("title").value;
     const genre = document.getElementById("genre").value;
-    const releaseYear = document.getElementById("releaseYear").value;
+    const release_year = document.getElementById("release_year").value;
 
     const response = await fetch(${apiUrl}/add_filme, {
     method: "POST",
