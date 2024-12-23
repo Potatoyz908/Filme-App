@@ -1,23 +1,14 @@
 import React from 'react';
-import './App.css';
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reloadwd.
-        </p>
-      dntro  <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-           oii
-        </a>
-      </header>
-    </div>
-  );
-}
+import FormFilme from "../components/FormFIlme";
+import ListaFilmes from "../components/ListaFIlmes";
+
+const App: React.FC = () => {
+    return (
+        <div>
+            <FormFilme />
+            <ListaFilmes />
+        </div>
+    );
+};
 
 export default App;
