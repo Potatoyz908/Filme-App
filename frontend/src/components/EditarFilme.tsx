@@ -34,30 +34,54 @@ const EditarFilme: React.FC<EditarFilmeProps> = ({ filmeId, onClose }) => {
     };
 
     return (
-        <div>
-            <h2>Editar Filme</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="Título"
-                    value={title}
-                    onChange={e => setTitle(e.target.value)}
-                />
-                <input
-                    type="text"
-                    placeholder="Gênero"
-                    value={genre}
-                    onChange={e => setGenre(e.target.value)}
-                />
-                <input
-                    type="number"
-                    placeholder="Ano de Lançamento"
-                    value={releaseYear}
-                    onChange={e => setReleaseYear(e.target.value)}
-                />
-                <button type="submit">Salvar Alterações</button>
-                <button type="button" onClick={onClose}>Cancelar</button>
-            </form>
+        <div className="container mt-4">
+            <div className="card mx-auto shadow-sm" style={{ maxWidth: '500px' }}>
+                <div className="card-header bg-primary text-white text-center">
+                    <h3>Editar Filme</h3>
+                </div>
+                <div className="card-body">
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label>Título</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={title}
+                                onChange={e => setTitle(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Gênero</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={genre}
+                                onChange={e => setGenre(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Ano de Lançamento</label>
+                            <input
+                                type="number"
+                                className="form-control"
+                                value={releaseYear}
+                                onChange={e => setReleaseYear(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="d-flex justify-content-between">
+                            <button type="submit" className="btn btn-success">
+                                Salvar Alterações
+                            </button>
+                            <button type="button" className="btn btn-secondary" onClick={onClose}>
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     );
 };

@@ -1,0 +1,104 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+
+interface FormFilmeProps {
+    onSubmit: (filme: { title: string; genre: string; release_year: number}) => void;
+    initialData?: {
+        id?: number;
+        title: string;
+        genre: string;
+        release_year: number;
+    };
+}
+
+const FormFilme: React.FC<FormFilmeProps> = ({ onSubmit, initialData }) => {
+    const [title, setTitle] = useState(initialData?.title || '');
+    const [genre, setGenre] = useState(initialData?.genre || '');
+    const [release_year, setReleaseYear] = useState(initialData?.release_year?.toString() || '');
+
+    const resetForm = () => {
+        setTitle('');
+        setGenre('');
+        setReleaseYear('');
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        const filmeData = { title, genre, release_year: parseInt(release_year) };
+
+        try {
+            if (initialData && initialData.id) {
+                await axios.put(`http://localhost:8080/filmes/${initialData.id}`, filmeData);
+                alert('Filme atualizado com sucesso!');
+            } else {
+                await axios.post('http://localhost:8080/filmes/add_filme', filmeData);
+                alert('Filme adicionado com sucesso!');
+            }
+
+            onSubmit();
+            resetForm();
+        } catch (error) {
+            console.error('Erro ao salvar o filme:', error);
+            alert('Erro ao salvar o filme. Verifique os dados e tente novamente.');
+        }
+    };
+
+    const handleCancel = () => {
+        resetForm();
+    };
+
+    return (
+        <div className="container mt-4">
+            <div className="card mx-auto shadow-sm" style={{ maxWidth: '500px' }}>
+                <div className={`card-header ${initialData ? 'bg-warning' : 'bg-primary'} text-white text-center`}>
+                    <h3>{initialData ? 'Editar Filme' : 'Adicionar Filme'}</h3>
+                </div>
+                <div className="card-body">
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label>Título</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Gênero</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={genre}
+                                onChange={(e) => setGenre(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Ano de Lançamento</label>
+                            <input
+                                type="number"
+                                className="form-control"
+                                value={release_year}
+                                onChange={(e) => setReleaseYear(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="d-flex justify-content-between">
+                            <button type="submit" className="btn btn-success">
+                                {initialData ? 'Salvar Alterações' : 'Adicionar Filme'}
+                            </button>
+                            <button type="button" className="btn btn-secondary" onClick={handleCancel}>
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default FormFilme;
