@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
 interface FormFilmeProps {
-    onSubmit: (filme: { id?: number; title: string; genre: string; release_year: number}) => void;
+    onSubmit: (filme: { id?: number; title: string; genre: string; release_year: number }) => void;
     initialData?: {
         id?: number;
         title: string;
@@ -24,16 +23,9 @@ const FormFilme: React.FC<FormFilmeProps> = ({ onSubmit, initialData }) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
         const filmeData = { id: initialData?.id, title, genre, release_year: parseInt(release_year) };
-
-        try {
-            onSubmit(filmeData);
-            resetForm();
-        } catch (error) {
-            console.error('Erro ao salvar o filme:', error);
-            alert('Erro ao salvar o filme. Verifique os dados e tente novamente.');
-        }
+        onSubmit(filmeData);
+        resetForm();
     };
 
     const handleCancel = () => {

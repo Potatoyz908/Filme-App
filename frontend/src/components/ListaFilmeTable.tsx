@@ -1,28 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchFilmes, deleteFilme as apiDeleteFilme } from '../features/filmes/filmesAPI';
-import { setFilmes, deleteFilme } from '../features/filmes/filmesSlice';
-import { RootState } from '../app/store';
+import React, { useState } from 'react';
 import EditarFilme from './EditarFilme';
 
-const ListaFilmesComTabela: React.FC = () => {
-    const dispatch = useDispatch();
-    const filmes = useSelector((state: RootState) => state.filmes.filmes);
+interface Filme {
+    id: number;
+    title: string;
+    genre: string;
+    release_year: number;
+}
+
+interface ListaFilmesComTabelaProps {
+    filmes: Filme[];
+    onEdit: (id: number) => void;
+    onDelete: (id: number) => Promise<void>;
+}
+
+const ListaFilmesComTabela: React.FC<ListaFilmesComTabelaProps> = ({ filmes, onEdit, onDelete }) => {
     const [filmeParaEditar, setFilmeParaEditar] = useState<number | null>(null);
 
-    // Carrega os filmes do backend
-    useEffect(() => {
-        const loadFilmes = async () => {
-            const data = await fetchFilmes();
-            dispatch(setFilmes(data));
-        };
-        loadFilmes();
-    }, [dispatch]);
-
-    // Função para excluir filmes
-    const handleDelete = async (id: number) => {
-        await apiDeleteFilme(id);
-        dispatch(deleteFilme(id));
+    const handleEdit = (id: number) => {
+        setFilmeParaEditar(id);
+        onEdit(id);
     };
 
     return (
@@ -54,13 +51,13 @@ const ListaFilmesComTabela: React.FC = () => {
                             <td>
                                 <button
                                     className="btn btn-sm btn-primary mr-2"
-                                    onClick={() => setFilmeParaEditar(filme.id)}
+                                    onClick={() => handleEdit(filme.id)}
                                 >
                                     Editar
                                 </button>
                                 <button
                                     className="btn btn-sm btn-danger"
-                                    onClick={() => handleDelete(filme.id)}
+                                    onClick={() => onDelete(filme.id)}
                                 >
                                     Deletar
                                 </button>
