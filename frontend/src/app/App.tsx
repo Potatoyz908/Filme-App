@@ -8,7 +8,6 @@ const App: React.FC = () => {
     const [filmes, setFilmes] = useState<any[]>([]);
     const [editingFilme, setEditingFilme] = useState<any | null>(null);
 
-    // Função para buscar filmes do backend
     const fetchFilmes = async () => {
         try {
             const response = await axios.get('http://localhost:8080/filmes/listar_filmes');
@@ -18,43 +17,38 @@ const App: React.FC = () => {
         }
     };
 
-    // Carregar os filmes ao montar o componente
     useEffect(() => {
         fetchFilmes();
     }, []);
 
-    // Adiciona um novo filme
     const handleAddFilme = async (filme: { title: string; genre: string; release_year: number }) => {
         try {
             const response = await axios.post('http://localhost:8080/filmes/add_filme', filme);
-            setFilmes([...filmes, response.data]); // Atualiza a lista com o novo filme
+            setFilmes([...filmes, response.data]);
         } catch (error) {
             console.error('Erro ao adicionar filme:', error);
         }
     };
 
-    // Atualiza um filme existente
     const handleSaveFilme = async (updatedFilme: { id: number; title: string; genre: string; release_year: number }) => {
         try {
             await axios.put(`http://localhost:8080/filmes/${updatedFilme.id}`, updatedFilme);
             setFilmes(filmes.map((f) => (f.id === updatedFilme.id ? updatedFilme : f)));
-            setEditingFilme(null); // Sai do modo de edição
+            setEditingFilme(null);
         } catch (error) {
             console.error('Erro ao atualizar filme:', error);
         }
     };
 
-    // Deleta um filme
     const handleDeleteFilme = async (id: number) => {
         try {
             await axios.delete(`http://localhost:8080/filmes/${id}`);
-            setFilmes(filmes.filter((f) => f.id !== id)); // Remove o filme localmente
+            setFilmes(filmes.filter((f) => f.id !== id));
         } catch (error) {
             console.error('Erro ao deletar filme:', error);
         }
     };
 
-    // Entra no modo de edição
     const handleEditFilme = (id: number) => {
         const filme = filmes.find((f) => f.id === id);
         setEditingFilme(filme);
@@ -67,7 +61,7 @@ const App: React.FC = () => {
                 {editingFilme ? (
                     <FormFilme
                         initialData={editingFilme}
-                        onSubmit={(updatedFilme) => handleSaveFilme(updatedFilme)}
+                        onSubmit={(updatedFilme) => handleSaveFilme(updatedFilme as { id: number; title: string; genre: string; release_year: number })}
                     />
                 ) : (
                     <>

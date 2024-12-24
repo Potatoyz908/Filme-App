@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 interface FormFilmeProps {
-    onSubmit: (filme: { title: string; genre: string; release_year: number}) => void;
+    onSubmit: (filme: { id?: number; title: string; genre: string; release_year: number}) => void;
     initialData?: {
         id?: number;
         title: string;
@@ -22,21 +22,13 @@ const FormFilme: React.FC<FormFilmeProps> = ({ onSubmit, initialData }) => {
         setReleaseYear('');
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        const filmeData = { title, genre, release_year: parseInt(release_year) };
+        const filmeData = { id: initialData?.id, title, genre, release_year: parseInt(release_year) };
 
         try {
-            if (initialData && initialData.id) {
-                await axios.put(`http://localhost:8080/filmes/${initialData.id}`, filmeData);
-                alert('Filme atualizado com sucesso!');
-            } else {
-                await axios.post('http://localhost:8080/filmes/add_filme', filmeData);
-                alert('Filme adicionado com sucesso!');
-            }
-
-            onSubmit();
+            onSubmit(filmeData);
             resetForm();
         } catch (error) {
             console.error('Erro ao salvar o filme:', error);
