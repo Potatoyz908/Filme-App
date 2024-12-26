@@ -16,6 +16,5 @@ public class FilmeApp2Application {
         System.out.println("2. Execute o comando 'npm install' para instalar as dependências.");
         System.out.println("3. Execute o comando 'npm start' para iniciar o front-end.");
         System.out.println("===================================================================\n");
-
     }
 }

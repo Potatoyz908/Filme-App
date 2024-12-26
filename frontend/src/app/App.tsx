@@ -47,7 +47,6 @@ const App: React.FC = () => {
     };
 
     const handleEditFilme = (id: number) => {
-        // Lógica de edição pode ser ajustada aqui
         console.log('Editar filme:', id);
     };
 

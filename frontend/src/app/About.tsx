@@ -1,6 +1,6 @@
 import React from 'react';
 
-const About: React.FC = () => {
+const Sobre: React.FC = () => {
     return (
         <div className="container mt-5">
             <div className="row justify-content-center">
@@ -41,4 +41,4 @@ const About: React.FC = () => {
     );
 };
 
-export default About;
+export default Sobre;

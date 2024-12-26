@@ -5,7 +5,7 @@ const Home: React.FC = () => {
         <div className="d-flex align-items-center justify-content-center vh-100 bg-light">
             <div className="container">
                 <div className="row text-center">
-                    {/* Adicionar Filme */}
+
                     <div className="col-md-4 mb-4">
                         <a href="/adicionar-filme">
                             <div className="card shadow">
@@ -18,7 +18,6 @@ const Home: React.FC = () => {
                         </a>
                     </div>
 
-                    {/* Gerenciar Filmes */}
                     <div className="col-md-4 mb-4">
                         <a href="/gerenciar-filmes">
                             <div className="card shadow">
@@ -30,7 +29,6 @@ const Home: React.FC = () => {
                         </a>
                     </div>
 
-                    {/* Sair */}
                     <div className="col-md-4 mb-4">
                         <a href="/sair">
                             <div className="card shadow">

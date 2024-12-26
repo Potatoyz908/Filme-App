@@ -5,13 +5,10 @@ const Sair: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Simula uma ação de "logout" e redireciona após 3 segundos
         const timer = setTimeout(() => {
-            // Redireciona para a página inicial ou login
             navigate('/');
         }, 3000);
 
-        // Limpa o timer ao desmontar o componente
         return () => clearTimeout(timer);
     }, [navigate]);
 
