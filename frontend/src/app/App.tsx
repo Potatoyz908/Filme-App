@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import Home from './Home';
+import About from './About';
+import Sair from './Sair';
 import FormFilme from '../components/FormFilme';
-import ListaFilmesComTabela from "../components/ListaFilmeTable";
+import ListaFilmesComTabela from '../components/ListaFilmeTable';
+import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
+
 
 const App: React.FC = () => {
     const [filmes, setFilmes] = useState<any[]>([]);
-    const [editingFilme, setEditingFilme] = useState<any | null>(null);
 
     const fetchFilmes = async () => {
         try {
@@ -30,16 +37,6 @@ const App: React.FC = () => {
         }
     };
 
-    const handleSaveFilme = async (updatedFilme: { id: number; title: string; genre: string; release_year: number }) => {
-        try {
-            await axios.put(`http://localhost:8080/filmes/${updatedFilme.id}`, updatedFilme);
-            setFilmes(filmes.map((f) => (f.id === updatedFilme.id ? updatedFilme : f)));
-            setEditingFilme(null);
-        } catch (error) {
-            console.error('Erro ao atualizar filme:', error);
-        }
-    };
-
     const handleDeleteFilme = async (id: number) => {
         try {
             await axios.delete(`http://localhost:8080/filmes/${id}`);
@@ -50,31 +47,30 @@ const App: React.FC = () => {
     };
 
     const handleEditFilme = (id: number) => {
-        const filme = filmes.find((f) => f.id === id);
-        setEditingFilme(filme);
+        // Lógica de edição pode ser ajustada aqui
+        console.log('Editar filme:', id);
     };
 
     return (
-        <div>
+        <Router>
             <Navbar />
-            <div className="container mt-4">
-                {editingFilme ? (
-                    <FormFilme
-                        initialData={editingFilme}
-                        onSubmit={(updatedFilme) => handleSaveFilme(updatedFilme as { id: number; title: string; genre: string; release_year: number })}
-                    />
-                ) : (
-                    <>
-                        <FormFilme onSubmit={(novoFilme) => handleAddFilme(novoFilme)} />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/adicionar-filme" element={<FormFilme onSubmit={handleAddFilme} />} />
+                <Route
+                    path="/gerenciar-filmes"
+                    element={
                         <ListaFilmesComTabela
                             filmes={filmes}
                             onEdit={handleEditFilme}
                             onDelete={handleDeleteFilme}
                         />
-                    </>
-                )}
-            </div>
-        </div>
+                    }
+                />
+                <Route path="/sobre" element={<About />} /> {/* Rota para Sobre */}
+                <Route path="/sair" element={<Sair />} /> {/* Rota para Sair */}
+            </Routes>
+        </Router>
     );
 };
 
