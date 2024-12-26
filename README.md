@@ -1,6 +1,6 @@
 ## 🎬 **Filmes Application v9.9.9**
 
-Esta é uma aplicação RESTful desenvolvida com **Spring Boot** e **MySQL** para gerenciar um catálogo de filmes. Inclui funcionalidades para adicionar e listar filmes.
+Esta é uma aplicação completa de gestão de filmes, composta por um **backend RESTful** desenvolvido com **Spring Boot** e **MySQL**, e um **frontend em React**. Inclui funcionalidades para adicionar, editar, listar, e remover filmes.
 
 ---
 
@@ -18,19 +18,29 @@ Certifique-se de que as ferramentas abaixo estão instaladas no sistema:
 2. **MySQL**:  
    - Configure o banco de dados conforme as instruções no tópico **Configuração do Banco de Dados**.
 
+3. **Node.js e npm** (para rodar o frontend):
+   - Verifique a instalação com:
+     ```bash
+     node -v
+     npm -v
+     ```
+   - Baixe e instale: [Node.js](https://nodejs.org/).
+
+---
+
 ### ⚙️ **Configuração do Banco de Dados**
 
 1. Crie o banco de dados e a tabela no MySQL:
    ```sql
    CREATE DATABASE filmes_db;
 
-   USE moviesdb;
+   USE filmes_db;
 
    CREATE TABLE filmes (
        id BIGINT AUTO_INCREMENT PRIMARY KEY,
        title VARCHAR(255) NOT NULL,
        genre VARCHAR(100) NOT NULL,
-       release_year INT 
+       release_year INT
    );
    ```
 
@@ -49,7 +59,9 @@ Certifique-se de que as ferramentas abaixo estão instaladas no sistema:
 
 ### 🛠️ **Como Rodar o Projeto**
 
-#### 1. **Usando o Maven Wrapper**
+#### **1. Backend (Spring Boot)**
+
+##### 1.1 **Usando o Maven Wrapper**
 Se o Maven não estiver instalado globalmente no sistema, use o Maven Wrapper incluído no projeto.  
 
 - **Para compilar o projeto**:
@@ -72,24 +84,46 @@ Se o Maven não estiver instalado globalmente no sistema, use o Maven Wrapper in
   mvnw.cmd spring-boot:run
   ```
 
-#### 2. **Rodando Diretamente na IDE**
+##### 1.2 **Rodando Diretamente na IDE**
 Se estiver utilizando uma IDE como **IntelliJ IDEA** ou **Eclipse**, você pode rodar o projeto diretamente:
 
 1. Localize a classe `FilmeApp2Application` no pacote `com.entidade`.
 2. Clique com o botão direito na classe e selecione **Run `FilmeApp2Application.main()`**.
 
-#### 3. **Rodando com Maven Globalmente**
-Se o Maven estiver instalado globalmente:
+---
 
-1. Compile o projeto:
-   ```bash
-   mvn clean install
-   ```
+#### **2. Frontend (React)**
 
-2. Rode o projeto:
-   ```bash
-   mvn spring-boot:run
-   ```
+##### 2.1 **Configuração Inicial**
+Navegue até a pasta do frontend e instale as dependências:
+```bash
+cd frontend
+npm install
+```
+
+##### 2.2 **Rodar o Frontend**
+Para iniciar o servidor de desenvolvimento do React:
+```bash
+npm start
+```
+
+O frontend estará disponível em:  
+`http://localhost:3000`
+
+---
+
+### 🌐 **Principais Funcionalidades**
+
+#### **Frontend**
+- **Home**: Página inicial com atalhos para todas as funcionalidades.
+- **Adicionar Filme**: Interface para cadastrar novos filmes.
+- **Gerenciar Filmes**: Lista de filmes com opções para editar e excluir.
+- **Sobre**: Página com informações sobre a aplicação.
+- **Sair**: Página de logout que redireciona para a página inicial.
+
+#### **Backend**
+- Endpoints para criar, listar, buscar, atualizar e excluir filmes.
+- Integração com o banco de dados MySQL.
 
 ---
 
@@ -112,8 +146,6 @@ Se o Maven estiver instalado globalmente:
    "Filme adicionado com sucesso!"
    ```
 
----
-
 #### **2. Listar Todos os Filmes**
 - **Método:** GET  
 - **URL:** `/filmes`  
@@ -130,9 +162,6 @@ Se o Maven estiver instalado globalmente:
    ]
    ```
 
-
----
-
 #### **3. Buscar Filme por ID**
 - **Método:** GET  
 - **URL:** `/filmes/{id}`  
@@ -146,13 +175,6 @@ Se o Maven estiver instalado globalmente:
        "releaseYear": 2003
    }
    ```
-
-- **Resposta de Falha (404 Not Found):**
-   ```json
-   404 Not Found
-   ```
-
----
 
 #### **4. Atualizar Filme**
 - **Método:** PUT  
@@ -176,8 +198,6 @@ Se o Maven estiver instalado globalmente:
    }
    ```
 
----
-
 #### **5. Deletar Filme**
 - **Método:** DELETE  
 - **URL:** `/filmes/{id}`  
@@ -187,17 +207,19 @@ Se o Maven estiver instalado globalmente:
    204 No Content
    ```
 
-- **Resposta de Falha (404 Not Found):**
-   ```json
-   404 Not Found
-   ```
-
 ---
 
 ### 📚 **Tecnologias Utilizadas**
 
+#### **Backend**
 - **Java 21**
 - **Spring Boot**
 - **Spring JDBC**
 - **MySQL**
 - **Maven Wrapper**
+
+#### **Frontend**
+- **React**
+- **Bootstrap**
+- **React Router**
+- **Font Awesome**
