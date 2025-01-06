@@ -10,13 +10,11 @@ public class FilmeApp2Application {
         SpringApplication.run(FilmeApp2Application.class, args);
         System.out.println("\n===================================================================");
         System.out.println("🎬 Filmes Application v9.9.9 está rodando! 😎🍿");
-        System.out.println("Acesse: http://localhost:8080");
-        System.out.println("Endpoints disponíveis:");
-        System.out.println("1. [POST] /filmes/add_filme - Para adicionar um filme.");
-        System.out.println("2. [GET]  /filmes/listar_filmes - Para listar todos os filmes.");
-        System.out.println("3. [PUT]   /filmes/editar_filme - Para editar um filme.");
-        System.out.println("4. [GET]   /filmes/{id} - Para buscar um filme pelo ID.");
-        System.out.println("5. [Delete]    /filmes/{id} - Para remover um filme.");
+        System.out.println("Acesse o front-end da aplicação em: http://localhost:3000");
+        System.out.println("🚀 Como iniciar o front-end:");
+        System.out.println("1. Navegue até o diretório do projeto do front-end.");
+        System.out.println("2. Execute o comando 'npm install' para instalar as dependências.");
+        System.out.println("3. Execute o comando 'npm start' para iniciar o front-end.");
         System.out.println("===================================================================\n");
     }
 }

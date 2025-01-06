@@ -1,0 +1,28 @@
+.navbar {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .nav-link {
+    color: #fff !important;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 16px;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+
+.navbar .nav-link:hover {
+    background-color: #ffffff;
+    color: #007bff !important;
+}
+
+.navbar .btn-danger {
+    padding: 5px 15px;
+    font-size: 16px;
+    margin-left: 15px;
+    border-radius: 4px;
+}
+
+.navbar .btn-danger:hover {
+    background-color: #c82333 !important;
+    border-color: #bd2130 !important;
+}

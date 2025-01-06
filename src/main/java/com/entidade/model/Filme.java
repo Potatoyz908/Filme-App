@@ -1,9 +1,20 @@
 package com.entidade.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 public class Filme {
     private int id;
+
+    @NotBlank(message = "O título do filme é obrigatório.")
     private String title;
+
+    @NotBlank(message = "O gênero do filme é obrigatório.")
     private String genre;
+
+    @NotNull(message = "O ano de lançamento do filme é obrigatório.")
+    @Positive(message = "O ano de lançamento do filme deve ser um número positivo.")
     private int release_year;
 
     public int getId() { return id; }
