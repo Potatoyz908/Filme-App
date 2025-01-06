@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { updateFilme as apiUpdateFilme, fetchFilmes } from '../features/filmes/filmesAPI';
-import { updateFilme } from '../features/filmes/filmesSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchFilmeById, updateFilmeThunk } from '../features/filmes/filmesSlice';
+import { RootState, AppDispatch } from '../app/store';
 
 interface EditarFilmeProps {
     filmeId: number;
@@ -9,27 +9,29 @@ interface EditarFilmeProps {
 }
 
 const EditarFilme: React.FC<EditarFilmeProps> = ({ filmeId, onClose }) => {
+    const dispatch = useDispatch<AppDispatch>();
+    const filme = useSelector((state: RootState) =>
+        state.filmes.filmes.find(f => f.id === filmeId)
+    );
     const [title, setTitle] = useState('');
     const [genre, setGenre] = useState('');
     const [releaseYear, setReleaseYear] = useState('');
-    const dispatch = useDispatch();
+    const error = useSelector((state: RootState) => state.filmes.error);
 
     useEffect(() => {
-        fetchFilmes().then(filmes => {
-            const filme = filmes.find((f: any) => f.id === filmeId);
-            if (filme) {
-                setTitle(filme.title);
-                setGenre(filme.genre);
-                setReleaseYear(filme.release_year.toString());
-            }
-        });
-    }, [filmeId]);
+        if (!filme) {
+            dispatch(fetchFilmeById(filmeId));
+        } else {
+            setTitle(filme.title);
+            setGenre(filme.genre);
+            setReleaseYear(filme.release_year.toString());
+        }
+    }, [dispatch, filme, filmeId]);
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        const updatedFilme = { title, genre, release_year: parseInt(releaseYear) };
-        const response = await apiUpdateFilme(filmeId, updatedFilme);
-        dispatch(updateFilme(response));
+        const updatedFilme = { id: filmeId, title, genre, release_year: parseInt(releaseYear) };
+        dispatch(updateFilmeThunk({ id: filmeId, updatedFilme }));
         onClose();
     };
 
@@ -40,6 +42,7 @@ const EditarFilme: React.FC<EditarFilmeProps> = ({ filmeId, onClose }) => {
                     <h3>Editar Filme</h3>
                 </div>
                 <div className="card-body">
+                    {error && <div className="alert alert-danger">{error}</div>}
                     <form onSubmit={handleSubmit}>
                         <div className="form-group">
                             <label>Título</label>
@@ -47,7 +50,7 @@ const EditarFilme: React.FC<EditarFilmeProps> = ({ filmeId, onClose }) => {
                                 type="text"
                                 className="form-control"
                                 value={title}
-                                onChange={e => setTitle(e.target.value)}
+                                onChange={(e) => setTitle(e.target.value)}
                                 required
                             />
                         </div>
@@ -57,7 +60,7 @@ const EditarFilme: React.FC<EditarFilmeProps> = ({ filmeId, onClose }) => {
                                 type="text"
                                 className="form-control"
                                 value={genre}
-                                onChange={e => setGenre(e.target.value)}
+                                onChange={(e) => setGenre(e.target.value)}
                                 required
                             />
                         </div>
@@ -67,8 +70,9 @@ const EditarFilme: React.FC<EditarFilmeProps> = ({ filmeId, onClose }) => {
                                 type="number"
                                 className="form-control"
                                 value={releaseYear}
-                                onChange={e => setReleaseYear(e.target.value)}
+                                onChange={(e) => setReleaseYear(e.target.value)}
                                 required
+                                min="1"
                             />
                         </div>
                         <div className="d-flex justify-content-between">
