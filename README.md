@@ -1,6 +1,6 @@
 ## 🎬 **Filmes Application v9.9.9**
 
-Esta é uma aplicação completa de gestão de filmes, composta por um **backend RESTful** desenvolvido com **Spring Boot** e **MySQL**, e um **frontend em React**. Inclui funcionalidades para adicionar, editar, listar, e remover filmes.
+Esta é uma aplicação completa de gestão de filmes, composta por um **backend RESTful** desenvolvido com **Spring Boot** e **MySQL**, e um **frontend em React**. Inclui funcionalidades para adicionar, editar, listar e remover filmes.
 
 ---
 
@@ -18,7 +18,7 @@ Certifique-se de que as ferramentas abaixo estão instaladas no sistema:
 2. **MySQL**:  
    - Configure o banco de dados conforme as instruções no tópico **Configuração do Banco de Dados**.
 
-3. **Node.js e npm** (para rodar o frontend):
+3. **Node.js e npm** (para rodar o frontend):  
    - Verifique a instalação com:
      ```bash
      node -v
@@ -44,16 +44,18 @@ Certifique-se de que as ferramentas abaixo estão instaladas no sistema:
    );
    ```
 
-2. Configure o arquivo **`application.properties`** (em `src/main/resources`) com as credenciais do banco de dados:
+2. Configure variáveis de ambiente para as credenciais do banco de dados:  
 
-   ```properties
-   spring.datasource.url=jdbc:mysql://localhost:3306/filmes_db
-   spring.datasource.username=root
-   spring.datasource.password=admin
-   spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+   - No **Linux/MacOS**, edite o arquivo `.env`:
+     ```bash
+     export SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/filmes_db
+     export SPRING_DATASOURCE_USERNAME=root
+     export SPRING_DATASOURCE_PASSWORD=admin
+     export SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
+     export SPRING_JPA_HIBERNATE_DDL_AUTO=update
+     ```
 
-   spring.jpa.hibernate.ddl-auto=update
-   ```
+   - No **Windows**, configure as variáveis no sistema ou usando o arquivo `.env`.
 
 ---
 
