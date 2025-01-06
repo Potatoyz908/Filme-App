@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const API_URL = 'http://localhost:8080/filmes';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/filmes';
 
 export const fetchFilmes = async () => {
     const response = await axios.get(`${API_URL}/listar_filmes`);
