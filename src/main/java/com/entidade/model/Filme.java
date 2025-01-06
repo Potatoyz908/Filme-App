@@ -17,6 +17,15 @@ public class Filme {
     @Positive(message = "O ano de lançamento do filme deve ser um número positivo.")
     private int release_year;
 
+    public Filme() {}
+
+    public Filme(int id, String title, String genre, int release_year) {
+        this.id = id;
+        this.title = title;
+        this.genre = genre;
+        this.release_year = release_year;
+    }
+
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
